@@ -11,6 +11,10 @@ import UIKit
 class KeyboardViewController: UIInputViewController {
 
     @IBOutlet var nextKeyboardButton: UIButton!
+    @IBOutlet var ascii: UIButton!
+    @IBOutlet var help: UIButton!
+    @IBOutlet var newline: UIButton!
+    @IBOutlet var delete: UIButton!
     
     var keyboardView: UIView!
 
@@ -45,6 +49,22 @@ class KeyboardViewController: UIInputViewController {
         view.addSubview(keyboardView)
         view.backgroundColor = keyboardView.backgroundColor
         nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside) // advanceToNextInputMode is already defined in template
+        ascii.addTarget(self, action: "writeText", forControlEvents: .TouchUpInside)
+        help.addTarget(self, action: "help", forControlEvents: .TouchUpInside)
+        newline.addTarget(self, action: "line", forControlEvents: .TouchUpInside)
+        delete.addTarget(self, action: "backspace", forControlEvents: .TouchUpInside)
+    }
+    
+    func writeText() {
+        textDocumentProxy.insertText("ascii")
+    }
+    
+    func line() {
+        textDocumentProxy.insertText("\n")
+    }
+    
+    func backspace() {
+        textDocumentProxy.deleteBackward()
     }
 
 
